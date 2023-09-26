@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:widget_zoom/src/widget_zoom_full_screen.dart';
 
 class WidgetZoom extends StatefulWidget {
@@ -66,6 +67,12 @@ class _WidgetZoomState extends State<WidgetZoom>
   void dispose() {
     _transformationController.dispose();
     _animationController.dispose();
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
     _removeOverlay();
     super.dispose();
   }
@@ -107,6 +114,15 @@ class _WidgetZoomState extends State<WidgetZoom>
   }
 
   void _showOverlay(ScaleStartDetails details) {
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ],
+    );
+
     if (details.pointerCount > 1) {
       _removeOverlay();
       final RenderBox imageBox = context.findRenderObject() as RenderBox;
