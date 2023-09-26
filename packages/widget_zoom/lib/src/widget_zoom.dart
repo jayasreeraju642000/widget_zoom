@@ -179,7 +179,16 @@ class _WidgetZoomState extends State<WidgetZoom>
   }
 
   void _openImageFullscreen() {
-    Navigator.of(context, rootNavigator: true).push(
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight
+      ],
+    );
+    Navigator.of(context, rootNavigator: true)
+        .push(
       PageRouteBuilder(
         opaque: false,
         pageBuilder: (context, animation1, animation2) => FadeTransition(
@@ -200,6 +209,14 @@ class _WidgetZoomState extends State<WidgetZoom>
         transitionDuration: const Duration(milliseconds: 300),
         reverseTransitionDuration: const Duration(milliseconds: 300),
       ),
-    );
+    )
+        .then((value) {
+      SystemChrome.setPreferredOrientations(
+        [
+          DeviceOrientation.portraitUp,
+          DeviceOrientation.portraitDown,
+        ],
+      );
+    });
   }
 }
